@@ -1,0 +1,47 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          kfbouncy
+# Required-Start:    $network
+# Required-Stop:     $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Description:       Karafun redirect HTTP listener
+### END INIT INFO
+
+DAEMON_PATH="/home/etl4tech_gmail_com/bin/kfbouncy.py"
+DAEMON=kfbouncy.py
+LOCK_FILE="/var/lock/subsys/kfbouncy"
+
+start() {
+    echo -n "Starting $DAEMON: "
+    daemon --user=www-data --pidfile="$LOCK_FILE" python3 "$DAEMON_PATH/$DAEMON"
+    [ $? -eq 0 ] && touch $LOCK_FILE
+    echo
+}
+
+stop() {
+    echo -n "Shutting down $DAEMON: "
+    pid=`ps -aefw | grep "$DAEMON" | grep -v " grep " | awk '{print $2}'`
+    kill -9 $pid > /dev/null 2>&1
+    [ $? -eq 0 ] && rm -f $LOCK_FILE
+    echo
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: {start|stop|restart}"
+        exit 1
+        ;;
+esac
+
+exit $?
