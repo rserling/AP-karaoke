@@ -4,7 +4,7 @@ from flask import Flask, request, redirect
 app = Flask(__name__)
 saved_number = None
 
-@app.route('/')
+@app.route('/kf')
 def handle_request():
     global saved_number
     number = request.args.get('number')
