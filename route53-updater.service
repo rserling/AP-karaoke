@@ -1,0 +1,12 @@
+[Unit]
+Description=Route53 IP Updater
+After=network.target
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/path/to/route53-updater.sh
+Environment=HOME=/root
+
+[Install]
+WantedBy=multi-user.target

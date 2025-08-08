@@ -13,9 +13,10 @@ def handle_request():
         saved_number = number
         return f"Number {number} saved"
     elif saved_number:
-        return redirect(f"http://www.karafun.com/{saved_number}")
+        return redirect(f"https://www.karafun.com/{saved_number}")
     else:
         return "No number provided and none saved"
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80)
+    app.run(host='0.0.0.0', port=8080)
+
