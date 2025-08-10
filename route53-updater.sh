@@ -1,5 +1,9 @@
 #!/bin/bash
 
+
+export AWS_SHARED_CREDENTIALS_FILE=/home/etl4tech_gmail_com/.aws/credentials
+export AWS_CONFIG_FILE=/home/etl4tech_gmail_com/.aws/config
+
 #IP_FILE="external_ip.txt"
 
 HOSTED_ZONE_ID1="Z05398511B67RQISJXPBJ"

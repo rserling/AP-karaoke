@@ -4,9 +4,9 @@ After=network.target
 
 [Service]
 Type=oneshot
-User=root
+User=your_username
 ExecStart=/path/to/route53-updater.sh
-Environment=HOME=/root
+Environment=HOME=/home/your_username
 
 [Install]
 WantedBy=multi-user.target
