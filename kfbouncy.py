@@ -2,21 +2,32 @@
 from flask import Flask, request, redirect
 
 app = Flask(__name__)
-saved_number = None
+NUMBER_FILE = "/tmp/kf-number.txt"
+
+def load_number():
+    try:
+        with open(NUMBER_FILE, 'r') as f:
+            return f.read().strip()
+    except:
+        return None
+
+def save_number(number):
+    with open(NUMBER_FILE, 'w') as f:
+        f.write(number)
 
 @app.route('/kf')
 def handle_request():
-    global saved_number
     number = request.args.get('number')
     
     if number:
-        saved_number = number
+        save_number(number)
         return f"Number {number} saved"
-    elif saved_number:
-        return redirect(f"https://www.karafun.com/{saved_number}")
     else:
-        return "No number provided and none saved"
+        saved_number = load_number()
+        if saved_number:
+            return redirect(f"http://www.karafun.com/{saved_number}")
+        else:
+            return "No number provided and none saved"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
-
